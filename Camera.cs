@@ -20,12 +20,12 @@ namespace RayTracer
             Horizontal = new Vec3(viewportWidth, 0, 0);
             Vertical = new Vec3(0, viewportHeight, 0);
 
-            Vec3 halfH = Horizontal.Divide(2);
-            Vec3 halfV = Vertical.Divide(2);
+            Vec3 H = Horizontal.Divide(2);
+            Vec3 V = Vertical.Divide(2);
             Vec3 focus = new Vec3(0, 0, focalLength);
 
-            Vec3 leftEdge = Origin.Subtract(halfH);
-            Vec3 lowerLeftNoFocus = leftEdge.Subtract(halfV);
+            Vec3 leftEdge = Origin.Subtract(H);
+            Vec3 lowerLeftNoFocus = leftEdge.Subtract(V);
             LowerLeftCorner = lowerLeftNoFocus.Subtract(focus);
 
         }
@@ -36,9 +36,9 @@ namespace RayTracer
             Vec3 vVert = Vertical.Multiply(v);
             Vec3 horizontalOffset = LowerLeftCorner.Add(uHoriz);
             Vec3 fullOffset = horizontalOffset.Add(vVert);
-            Vec3 rayDirection = fullOffset.Subtract(Origin);
+            Vec3 rayDirect = fullOffset.Subtract(Origin);
 
-            return new Ray(Origin, rayDirection);
+            return new Ray(Origin, rayDirect);
         }
 
     }
