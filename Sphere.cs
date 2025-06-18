@@ -4,45 +4,42 @@ namespace RayTracer
 {
     public class Sphere : IHitable
     {
-        public Vec3 Center;
-        public double Radius;
+        private Vec3 center;
+        private double radius;
 
-        public Sphere(Vec3 C, double R)
+        public Sphere(Vec3 center, double radius)
         {
-            Center = C;
-            Radius = R;
+            this.center = center;
+            this.radius = radius;
         }
-        public bool Hit(Ray ray, double mint, double maxt, out HitRecord hitReс)
+
+        public bool Hit(Ray ray, double tMin, double tMax, out HitRecord rec)
         {
-            hitReс = new HitRecord();
+            rec = new HitRecord();
 
-            Vec3 offset = ray.Origin.Subtract(Center);
+            Vec3 oc = ray.Origin.Sub(center);
+            double a = ray.Direction.Dot(ray.Direction);
+            double b = 2.0 * oc.Dot(ray.Direction);
+            double c = oc.Dot(oc) - radius * radius;
 
-            double a = Vec3.Dot(ray.Direction, ray.Direction);
-            double b = Vec3.Dot(offset, ray.Direction);
-            double c = Vec3.Dot(offset, offset) - Radius * Radius;
+            double discriminant = b * b - 4 * a * c;
 
-            double discriminant = b * b - a * c;
-            if (discriminant < 0.0)
-                return false;
+            if (discriminant < 0) return false;
 
             double sqrtD = Math.Sqrt(discriminant);
-
-            double root = (-b - sqrtD) / a;
-            if (root < mint || root > maxt)
+            double t = (-b - sqrtD) / (2.0 * a);
+            if (t < tMin ||
+                t > tMax)
             {
-                root = (-b + sqrtD) / a;
-                if (root < mint || root > maxt)
+                t = (-b + sqrtD) / (2.0 * a);
+                if (t < tMin ||
+                    t > tMax)
                     return false;
             }
 
-
-            hitReс.t = root;
-            hitReс.Point = ray.GetDistanc(root);
-            Vec3 centerToHit = hitReс.Point.Subtract(Center);
-            Vec3 Normal = centerToHit.Divide(Radius);
-            hitReс.Normal = Normal;
-
+            rec.T = t;
+            rec.Point = ray.GetDistanc(t);
+            rec.Normal = rec.Point.Sub(center).Divide(radius);
             return true;
         }
     }

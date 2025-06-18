@@ -4,6 +4,6 @@ namespace RayTracer
 {
     public interface IHitable
     {
-        bool Hit(Ray ray, double mint, double maxt, out HitRecord hitReс);
+        bool Hit(Ray ray, double tMin, double tMax, out HitRecord rec);
     }
 }

@@ -17,24 +17,24 @@ namespace RayTracer
             Objects.Add(obj);
         }
 
-        public bool Hit(Ray ray, double mint, double maxt, out HitRecord hitReс)
+        public bool Hit(Ray ray, double tMin, double tMax, out HitRecord hitRec)
         {
-            hitReс = new HitRecord();
-            bool isAny = false;
-            double hitDistanc = maxt;
+            hitRec = new HitRecord();
+            bool hitAnything = false;
+            double closestSoFar = tMax;
 
-            foreach (IHitable item in Objects)
+            foreach (IHitable obj in Objects)
             {
-                HitRecord tempRecord;
-
-                if (item.Hit(ray, mint, maxt, out tempRecord))
+                HitRecord tempRec;
+                if (obj.Hit(ray, tMin, closestSoFar, out tempRec))
                 {
-                    isAny = true;
-                    hitDistanc = tempRecord.t;
-                    hitReс = tempRecord;
+                    hitAnything = true;
+                    closestSoFar = tempRec.T;
+                    hitRec = tempRec;
                 }
             }
-                return isAny;
-            }
+
+            return hitAnything;
         }
     }
+}

@@ -19,7 +19,8 @@ namespace RayTracer
 
         public Vec3 GetDistanc(double t)
         {
-            return Origin.Add(Direction.Multiply(t));
+            Vec3 result = Origin.Add(Direction.Multiply(t));
+            return result;
         }
     }
 }
