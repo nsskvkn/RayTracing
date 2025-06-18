@@ -38,7 +38,7 @@ namespace RayTracer
             Vec3 fullOffset = horizontalOffset.Add(vVert);
             Vec3 rayDirect = fullOffset.Subtract(Origin);
 
-            return new Ray(Origin, rayDirect);
+            Ray ray = new Ray(origin, direction);
         }
 
     }
