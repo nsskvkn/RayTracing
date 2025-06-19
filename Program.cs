@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.IO;
-using System.Numerics;
+using System.Text;
 
 namespace RayTracer
 {
-    public class Program
+    class Program
     {
         private const double Colors = 256;
 
@@ -45,12 +45,12 @@ namespace RayTracer
         {
             if (sphere.Hit(ray, 0.001, double.MaxValue, out HitRecord rec))
             {
-                return new Vec3(0.5 * (rec.Normal.X + 1.0), 0.5 * (rec.Normal.Y + 1.0),0.5 * (rec.Normal.Z + 1.0) );
+                return new Vec3(0.5 * (rec.Normal.X + 1), 0.5 * (rec.Normal.Y + 1),0.5 * (rec.Normal.Z + 1) );
             }
 
             var unitDir = ray.Direction.Unit();
-            double t = 0.5 * (unitDir.Y + 1.0);
-            return new Vec3( (1.0 - t) * 1.0 + t * 0.5,(1.0 - t) * 1.0 + t * 0.7,(1.0 - t) * 1.0);
+            double t = 0.5 * (unitDir.Y + 1);
+            return new Vec3( (1 - t) * 1 + t * 0.5,(1 - t) * 1.0 + t * 0.7,(1 - t) * 1);
         }
     }
 }
