@@ -18,9 +18,7 @@ namespace RayTracer
 
         public bool Scatter(Ray rIn, HitRecord rec, out Vec3 attenuation, out Ray scattered)
         {
-            Vec3 target = rec.Point
-                .Add(rec.Normal)
-                .Add(RandomInUnitSphere());
+            Vec3 target = rec.Point.Add (rec.Normal) .Add(RandomInUnitSphere());
 
             scattered = new Ray(rec.Point, target.Sub(rec.Point));
             attenuation = AlbedoColor;
@@ -32,12 +30,12 @@ namespace RayTracer
             Vec3 point;
             do
             {
-                double x = 2.0 * randomGen.NextDouble() - 1.0;
-                double y = 2.0 * randomGen.NextDouble() - 1.0;
-                double z = 2.0 * randomGen.NextDouble() - 1.0;
+                double x = 2 * randomGen.NextDouble() - 1;
+                double y = 2 * randomGen.NextDouble() - 1;
+                double z = 2 * randomGen.NextDouble() - 1;
                 point = new Vec3(x, y, z);
             }
-            while (point.Dot(point) >= 1.0);
+            while (point.Dot(point) >= 1);
             return point;
         }
     }
